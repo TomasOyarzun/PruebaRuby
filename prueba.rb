@@ -14,7 +14,7 @@ def student_avg
 	 	c = b.inject(0){ |acum, i| acum + i.to_f } / b.length #For avg
 
 	 	#Creating student_avg.csv
-	 	File.open('student_avg.csv', 'a'){ |file| file.puts "#{a} tiene un promedio de: #{c}"}
+	 	File.open('student_avg.csv', 'a'){ |file| file.puts "#{a} tiene un promedio de: #{c}" }
 	end
 	#Reading student_avg.csv
 	answ = nil
@@ -65,8 +65,7 @@ def main_menu
 			when 3
 				puts 'Ingrese la nota necesaria para aprobar'
 				avg = gets.chomp.to_f
-				cls
-				student_aprobe(avg)
+				avg > 0 ? student_aprobe(avg) : student_aprobe()
 			when 4
 				break puts 'Hasta la próxima!'
 			else puts 'Ingrese una opción valida'
