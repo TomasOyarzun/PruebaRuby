@@ -34,7 +34,7 @@ def unattendance
 	puts count
 end
 
-def student_aprobe(avg)
+def student_aprobe(avg = 5.0)	
 	#Reading archive.csv
 	students = nil
 	File.open('archive.csv', 'r'){ |info| students = info.readlines.map(&:chomp) }
