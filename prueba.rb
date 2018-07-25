@@ -22,6 +22,18 @@ def student_avg
 	puts answ
 end
 
+def unattendance
+	#Reading archive.csv
+	students = nil
+	File.open('archive.csv', 'r'){ |info| students = info.readlines.map(&:chomp) }
+
+	count = 0	
+	students.each do |student|
+	 	count += student.split(', ')[1..5].count('A')  #Searching for letter A in grades
+	end
+	puts count
+end
+
 def main_menu
 	option = 0
 	while option != 4
@@ -36,7 +48,7 @@ def main_menu
 			when 1
 				student_avg
 			when 2
-				no_attendance
+				unattendance
 			when 3
 				student_aprobe
 			when 4
