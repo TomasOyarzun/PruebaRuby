@@ -11,7 +11,7 @@ def student_avg
 	students.each do |student|
 	 	a = student.split(', ')[0] #For names
 	 	b = student.split(', ')[1..5] #For grades
-	 	c = b.inject(0){ |acum, i| acum + i.to_f } / b.length #For grades
+	 	c = b.inject(0){ |acum, i| acum + i.to_f } / b.length #For avg
 
 	 	#Creating student_avg.csv
 	 	File.open('student_avg.csv', 'a'){ |file| file.puts "#{a} tiene un promedio de: #{c}"}
@@ -29,9 +29,22 @@ def unattendance
 
 	count = 0	
 	students.each do |student|
-	 	count += student.split(', ')[1..5].count('A')  #Searching for letter A in grades
+	 	count += student.split(', ')[1..5].count('A') #Searching for letter A in grades
 	end
 	puts count
+end
+
+def student_aprobe(avg)
+	#Reading archive.csv
+	students = nil
+	File.open('archive.csv', 'r'){ |info| students = info.readlines.map(&:chomp) }
+
+	students.each do |student|
+		a = student.split(', ')[0] #For names
+		b = student.split(', ')[1..5] #For grades
+		c = b.inject(0){ |acum, i| acum + i.to_f } / b.length #For grades
+		puts "El alumno #{a} a aprobado con un promedio de: #{c}" if c >= avg
+	end
 end
 
 def main_menu
@@ -50,9 +63,12 @@ def main_menu
 			when 2
 				unattendance
 			when 3
-				student_aprobe
+				puts 'Ingrese la nota necesaria para aprobar'
+				avg = gets.chomp.to_f
+				cls
+				student_aprobe(avg)
 			when 4
-				break
+				break puts 'Hasta la próxima!'
 			else puts 'Ingrese una opción valida'
 		end
 	end
